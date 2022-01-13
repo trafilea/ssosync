@@ -33,21 +33,21 @@ Metadata:
     LicenseUrl: LICENSE
     ReadmeUrl: SAR.md
     Labels: [serverless, sso, lambda, scim]
-    HomePageUrl: https://github.com/awslabs/ssosync
+    HomePageUrl: https://github.com/trafilea/ssosync
     # Update the semantic version and run sam publish to publish a new version of your app
-    SemanticVersion: 1.0.0-rc.10
+    SemanticVersion: group-match-or
     # best practice is to use git tags for each release and link to the version tag as your source code URL
-    SourceCodeUrl: https://github.com/awslabs/ssosync/tree/1.0.0-rc.10
+    SourceCodeUrl: https://github.com/trafilea/ssosync/tree/group-match-or
 
 Parameters:
   ScheduleExpression:
     Type: String
     Description: Schedule for trigger the execution of ssosync (see CloudWatch schedule expressions)
-    Default: rate(15 minutes)
+    Default: rate(1 hour)
   LogLevel:
     Type: String
     Description: Log level for Lambda function logging
-    Default: warn
+    Default: debug
     AllowedValues:
       - panic
       - fatal
@@ -59,7 +59,7 @@ Parameters:
   LogFormat:
     Type: String
     Description: Log format for Lambda function logging
-    Default: json
+    Default: text
     AllowedValues:
       - json
       - text
@@ -86,7 +86,8 @@ Parameters:
   GoogleGroupMatch:
     Type: String
     Description: |
-      Google Workspace group filter query parameter, example: 'name:Admin* email:aws-*', see: https://developers.google.com/admin-sdk/directory/v1/guides/search-groups
+      --group-match params - Google Workspace group filter query parameter, example: 'name:Admin* email:aws-*', see: https://developers.google.com/admin-sdk/directory/v1/guides/search-groups
+    Default: email=it-infrastructure@trafilea.com,email=it-qa@trafilea.com,email=it-business-support@trafilea.com,email=it-software-development@trafilea.com,email=it-innovation@trafilea.com,email=it-integrations@trafilea.com
   IgnoreGroups:
     Type: String
     Description: |
